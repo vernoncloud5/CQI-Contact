@@ -1,1 +1,403 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Quantum Innovations</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --navy: #1F2D3D;
+    --navy-deep: #16212E;
+    --paper: #F7F6F3;
+    --grey: #6B6B6B;
+    --line: #D8D4CC;
+    --brass: #A8915C;
+    --purple: #906CD0;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--paper);
+    color: var(--navy);
+    font-family: 'Barlow', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+  }
+
+  .sheet {
+    width: 100%;
+    max-width: 480px;
+    background: var(--white);
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 12px 32px rgba(31,45,61,0.07);
+  }
+
+  .band {
+    background: var(--navy);
+    color: var(--white);
+    padding: 18px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .band-id {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.55);
+  }
+
+  .band-logo {
+    height: 28px;
+    width: auto;
+  }
+
+  .photo-wrap {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--navy-deep);
+  }
+
+  .photo-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    display: block;
+  }
+
+  .hero {
+    padding: 32px 32px 26px;
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 32px;
+    letter-spacing: -0.01em;
+    color: var(--navy-deep);
+    line-height: 1.05;
+  }
+
+  .person-line {
+    margin-top: 14px;
+    font-size: 15px;
+    color: var(--navy);
+  }
+
+  .person-line .person-name {
+    font-weight: 600;
+  }
+
+  .title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-top: 3px;
+  }
+
+  .org-sub {
+    font-size: 12.5px;
+    color: var(--grey);
+    margin-top: 4px;
+  }
+
+  .section {
+    padding: 22px 32px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section:last-child { border-bottom: none; }
+
+  .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+  }
+
+  .about-text {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--navy);
+  }
+
+  .about-text + .about-text {
+    margin-top: 12px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px 18px;
+  }
+
+  .service {
+    font-size: 13.5px;
+    color: var(--navy);
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+
+  .service::before {
+    content: '—';
+    color: var(--brass);
+    font-weight: 600;
+  }
+
+  .contact-row {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    font-size: 15px;
+    color: var(--navy);
+    text-decoration: none;
+  }
+
+  .contact-item .k {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--grey);
+    width: 52px;
+    flex-shrink: 0;
+    text-transform: uppercase;
+  }
+
+  .contact-item .v {
+    font-weight: 500;
+    word-break: break-word;
+  }
+
+  a.contact-item:hover .v { color: var(--brass); }
+
+  .form-group {
+    margin-bottom: 14px;
+  }
+
+  .form-group label {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--grey);
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    padding: 10px 12px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: var(--navy);
+    border-radius: 2px;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--purple);
+  }
+
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--navy);
+    color: var(--white);
+    border: none;
+    padding: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .submit-btn:hover {
+    background: var(--navy-deep);
+  }
+
+  .form-note {
+    font-size: 11.5px;
+    color: var(--grey);
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .form-success {
+    display: none;
+    text-align: center;
+    padding: 20px 0;
+    color: var(--navy);
+    font-size: 14px;
+  }
+
+  .footer {
+    padding: 18px 32px 26px;
+    text-align: center;
+  }
+
+  .footer-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.1em;
+    color: var(--grey);
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 420px) {
+    .name { font-size: 27px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <div class="band">
+    <span class="band-id">CQI · CONTACT SHEET</span>
+    <img class="band-logo" src="cqi-logo.png" alt="Cloud Quantum Innovations logo">
+  </div>
+
+  <div class="photo-wrap">
+    <img src="vernon-photo.jpg" alt="Vernon Cloud, Owner and President of Cloud Quantum Innovations">
+  </div>
+
+  <div class="hero">
+    <div class="name">Cloud Quantum Innovations</div>
+    <div class="person-line"><span class="person-name">Vernon Cloud</span> · Owner / President</div>
+    <div class="org-sub">San Antonio, TX · Small Business</div>
+  </div>
+
+  <div class="section">
+    <div class="label">About</div>
+    <div class="about-text">Cloud Quantum Innovations supports federal and military facilities with the day-to-day services that keep operations running &mdash; from medical linen and laundry programs at military hospitals to janitorial, grounds, and waste management at installations across the country.</div>
+    <div class="about-text">I started CQI to build something durable: a small business that earns trust with the people who depend on it, one contract and one site visit at a time. Every relationship with a facility, a contracting officer, or a vendor partner is one we intend to keep for the long run.</div>
+  </div>
+
+  <div class="section">
+    <div class="label">Services</div>
+    <div class="services-grid">
+      <div class="service">Solid Waste &amp; Recycling</div>
+      <div class="service">Janitorial</div>
+      <div class="service">Laundry &amp; Linen</div>
+      <div class="service">Groundskeeping</div>
+      <div class="service">Pressure Washing</div>
+      <div class="service">Security</div>
+      <div class="service">Courier</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="label">Contact</div>
+    <div class="contact-row">
+      <a class="contact-item" href="tel:+12108021984">
+        <span class="k">Phone</span>
+        <span class="v">(210) 802-1984</span>
+      </a>
+      <a class="contact-item" href="mailto:vernon@cloudquantuminnovations.com">
+        <span class="k">Email</span>
+        <span class="v">vernon@cloudquantuminnovations.com</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="label">Send a message</div>
+    <form id="contact-form" action="https://formspree.io/vernon@cloudquantuminnovations.com" method="POST">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" required></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send message</button>
+    </form>
+    <div class="form-success" id="form-success">Message sent &mdash; thank you. I'll be in touch soon.</div>
+    <div class="form-note">Goes directly to Vernon's inbox.</div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-line">Federal &amp; Military Facility Services</div>
+  </div>
+
+</div>
+
+<script>
+  const form = document.getElementById('contact-form');
+  const successMsg = document.getElementById('form-success');
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const data = new FormData(form);
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (response.ok) {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+      } else {
+        alert('Something went wrong. Please try emailing directly instead.');
+      }
+    } catch (error) {
+      alert('Something went wrong. Please try emailing directly instead.');
+    }
+  });
+</script>
+
+</body>
+</html>
