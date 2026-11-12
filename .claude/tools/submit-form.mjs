@@ -6,9 +6,20 @@
 // logins, payment fields or sign-ups. Never retries around a CAPTCHA.
 // Prints one JSON line: {status, url, fieldsFilled, reason, screenshot}.
 
-import { chromium } from 'playwright';
 import fs from 'node:fs';
 import path from 'node:path';
+import { createRequire } from 'node:module';
+
+// ESM imports ignore NODE_PATH, so look for a globally installed Playwright too.
+async function loadChromium() {
+  try { return (await import('playwright')).chromium; } catch {}
+  const dirs = [...(process.env.NODE_PATH || '').split(':'), '/opt/node-tools/node_modules', '/usr/local/lib/node_modules', '/usr/lib/node_modules'].filter(Boolean);
+  for (const d of dirs) {
+    try { return createRequire(path.join(d, 'noop.js'))('playwright').chromium; } catch {}
+  }
+  throw new Error('playwright not found');
+}
+const chromium = await loadChromium();
 
 const CQI = {
   firstName: 'Vernon',
