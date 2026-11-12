@@ -810,7 +810,7 @@ SOURCES.update({
     "md_montgomery_county": md_montgomery_county,
     "tx_san_antonio": tx_san_antonio,
     "sba_subnet": sba_subnet,
-    "bidnet_direct": bidnet_direct,
+    # "bidnet_direct": bidnet_direct,  # disabled: BidNet robots.txt opts out of AI agents
 })
 
 
