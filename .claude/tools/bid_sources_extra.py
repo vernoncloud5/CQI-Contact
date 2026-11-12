@@ -170,7 +170,9 @@ def _soft(fn):
     def wrapper(keywords, min_due_date):
         try:
             kws = [k.strip() for k in (keywords or DEFAULT_KEYWORDS) if k and k.strip()]
-            rows = fn(kws, min_due_date or "")
+            # accept a date/datetime or an ISO string
+            min_due_date = str(min_due_date)[:10] if min_due_date else ""
+            rows = fn(kws, min_due_date)
             return _dedupe([r for r in rows if _keep(r, min_due_date)])
         except Exception as e:  # noqa: BLE001 - fail soft by design
             if "--debug" in sys.argv:
