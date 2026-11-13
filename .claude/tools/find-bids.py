@@ -62,7 +62,7 @@ DEFAULT_KEYWORDS = [
     "shredding", "shred", "document destruction",
     # grounds (561730)
     "grounds maintenance", "groundskeeping", "landscaping", "landscape maintenance",
-    "mowing", "lawn", "snow removal", "snow and ice", "tree trimming", "vegetation",
+    "mowing", "lawn", "snow removal", "snow and ice", "tree trimming", "tree removal", "hazardous tree", "snow hauling", "snow plowing", "winter trucking", "vegetation",
     "herbicide", "weed",
     # pest
     "pest control", "pest management", "rodent", "termite",

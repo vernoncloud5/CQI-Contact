@@ -163,3 +163,12 @@ repeats some NC, MA and VA items.
 4. **Login-only**: NYS Contract Reporter (free account), Public Purchase (free), Kansas.
 5. One option to automate these alerts: send them to one inbox and have the bid finder
    read that inbox. That depends on Gmail access and was not built here.
+
+## Checked by hand, Nov 13, 2026
+
+| Source | Covers | Status | How | Notes |
+|---|---|---|---|---|
+| Vermont Business Registry / Bid System | VT state, cities, towns, schools | Works (adapter `vt_bid_system`) | HTML list at https://www.vermontbusinessregistry.com/BidSearch.aspx?type=1 | BidPreview.aspx pages error; the list page has title, organization and close date. No robots.txt. |
+| Bexar County, TX | County | Works, nothing open Nov 13 | https://www.bexar.org/Bids.aspx | "There are no open bid postings at this time." No adapter yet. |
+| SAWS (IonWave) | San Antonio Water System | Blocked | sawsbid.ionwave.net returns "Invalid Address Requested"; IonWave robots.txt disallows | SAWS bids arrive by IonWave notification email instead. |
+| Oklahoma OMES Central Purchasing | OK state | Partial | oklahoma.gov/omes/divisions/central-purchasing.html loads, no list | solicitations.html is 404; real list URL still needed. |
