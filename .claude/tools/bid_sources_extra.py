@@ -789,6 +789,29 @@ def tx_san_antonio(keywords, min_due):
     return out
 
 
+@_soft
+def vt_bid_system(keywords, min_due):
+    """Vermont Business Registry and Bid System: all open state, city and town bids (one page)."""
+    b, op = Budget(), _opener()
+    url = "https://www.vermontbusinessregistry.com/BidSearch.aspx?type=1"
+    page = _fetch(op, url, budget=b)
+    out = []
+    blocks = re.findall(
+        r"BidPreview\.aspx\?BidID=(\d+)[^>]*>(.*?)</a>.*?id=\"lblOrganization\"[^>]*>(.*?)</span>"
+        r".*?id=\"lblCloseDate\"[^>]*>(.*?)</span>", page, re.S)
+    for bid_id, title, org, close in blocks:
+        title, org = _text(title), _text(org)
+        kw = _match(title, keywords)
+        if not kw:
+            continue
+        out.append(_rec("vt_bid_system", number="VT-" + bid_id, title=title, agency=org,
+                        city=re.sub(r"^(City|Town|Village) of ", "", org) if re.match(r"(City|Town|Village) of ", org) else "",
+                        state="VT", due=_date(_text(close).split(" ")[0]), type="Bid",
+                        url="https://www.vermontbusinessregistry.com/BidPreview.aspx?BidID=" + bid_id,
+                        matched_keyword=kw))
+    return out
+
+
 # --------------------------------------------------------------------------
 # registry
 # --------------------------------------------------------------------------
@@ -810,6 +833,7 @@ SOURCES.update({
     "md_montgomery_county": md_montgomery_county,
     "tx_san_antonio": tx_san_antonio,
     "sba_subnet": sba_subnet,
+    "vt_bid_system": vt_bid_system,
     # "bidnet_direct": bidnet_direct,  # disabled: BidNet robots.txt opts out of AI agents
 })
 
