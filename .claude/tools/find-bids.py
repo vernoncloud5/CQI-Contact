@@ -72,11 +72,18 @@ DEFAULT_KEYWORDS = [
     # other facility support (561210 / 561790 / 561990)
     "facility support", "facilities maintenance", "street sweeping", "parking lot sweeping",
     "trauma cleaning", "biohazard",
+    # added Nov 26, 2026 at Vernon's direction
+    "carpet installation", "carpet install", "carpet replacement", "flooring installation",
+    "flooring", "floor covering", "vinyl flooring", "graffiti", "graffiti removal",
+    "towing", "tow service", "wrecker", "impound",
+    # simple plumbing only (a few fixtures); NOT commercial piping runs, see the log
+    "plumbing", "toilet repair",
 ]
 
 # CQI NAICS from Playbook + SAM reps (Agent Memory, Nov 8 2026)
 CQI_NAICS = ["812332", "812320", "562111", "562119", "561720", "561730", "561210",
-             "561320", "492210", "492110", "561790", "561990", "491110", "561612"]
+             "561320", "492210", "492110", "561790", "561990", "491110", "561612",
+             "238330", "488410"]
 
 # Set-aside codes CQI can bid (small business, full & open). Everything else drops.
 OK_SET_ASIDES = {"", "NONE", "SBA", "SBP"}
@@ -99,6 +106,9 @@ NOISE_TITLE = re.compile(
     r"sole[- ]source|brand name|special notice|cancel+ed|cancellation|notice of intent)\b",
     re.I)
 # Supply-only or construction titles (the subcontract model is services).
+# Titles with these words are exempt from the off-model filter (Vernon, Nov 26 2026):
+# carpet/flooring installation, graffiti removal, towing and simple plumbing are CQI lines.
+ON_MODEL_EXEMPT = re.compile(r"(carpet|flooring|floor covering|graffiti|towing|\btow\b|wrecker|impound|plumb|toilet)", re.I)
 OFF_MODEL_TITLE = re.compile(
     r"\b(supplies|products|chemicals|purchase of|procurement of|construction|renovat\w*|"
     r"design[- ]build|roofing|paving|hvac|install\w*|replacement|repair of|generators?|"
@@ -488,7 +498,7 @@ def main():
             title = c.get("title") or ""
             if NOISE_TITLE.search(title):
                 continue
-            if not args.allow_off_model and OFF_MODEL_TITLE.search(title):
+            if not args.allow_off_model and OFF_MODEL_TITLE.search(title) and not ON_MODEL_EXEMPT.search(title):
                 continue
             sa = (c.get("set_aside_code") or c.get("set_aside") or "").upper()
             if c.get("source") == "sam":
