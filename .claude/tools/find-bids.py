@@ -99,7 +99,8 @@ SET_ASIDE_NAMES = {
 
 # SAM notice types kept: o=Solicitation, k=Combined Synopsis/Solicitation,
 # p=Presolicitation, r=Sources Sought.
-SAM_NOTICE_TYPES = "o,k,p,r"
+# Presolicitations (p) are dropped per Vernon, Nov 26 2026: they are only a notification. Re-check them later.
+SAM_NOTICE_TYPES = "o,k,r"
 
 NOISE_TITLE = re.compile(
     r"\b(award notice|notice of award|justification|j\s*&\s*a|intent to (sole|award)|"
@@ -478,7 +479,9 @@ def main():
             log(f"[extra] '{name}' clashes with a built-in source; skipped")
             continue
         available[name] = (lambda f: (lambda kws, md, _a: f(kws, md)))(fn)
-    wanted = list(available) if args.sources == "all" else [s.strip() for s in args.sources.split(",") if s.strip()]
+    # SBA SubNet postings are subcontract-side (CQI is only ever the prime), skipped by default
+    # per Vernon, Nov 26 2026. Name sba_subnet in --sources to run it anyway.
+    wanted = [n for n in available if n != "sba_subnet"] if args.sources == "all" else [s.strip() for s in args.sources.split(",") if s.strip()]
 
     seen, stats, emitted = set(), {}, 0
     for name in wanted:
